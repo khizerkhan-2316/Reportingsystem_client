@@ -13,7 +13,7 @@ const HomeUser = ({
   useEffect(() => {
     const data = getData(
       localStorage.getItem(process.env.REACT_APP_USER_ACCESS_TOKEN_KEY),
-      `${process.env.REACT_APP_LOCAL_HOST_ENDPOINT}/api/users/profile`
+      `${process.env.REACT_APP_BASE_ENDPOINT}/api/users/profile`
     );
 
     data.then((data) => setUserData(data));

@@ -20,14 +20,14 @@ const HomeAdmin = ({
   const initializeAllRequests = () => {
     const data = getData(
       localStorage.getItem(process.env.REACT_APP_ADMIN_ACCESS_TOKEN_KEY),
-      `${process.env.REACT_APP_LOCAL_HOST_ENDPOINT}/api/users/admin`
+      `${process.env.REACT_APP_BASE_ENDPOINT}/api/users/admin`
     );
 
     data.then((data) => setAdminData(data));
 
     const usersdata = getData(
       localStorage.getItem(process.env.REACT_APP_ADMIN_ACCESS_TOKEN_KEY),
-      `${process.env.REACT_APP_LOCAL_HOST_ENDPOINT}/api/users`
+      `${process.env.REACT_APP_BASE_ENDPOINT}/api/users`
     );
 
     usersdata.then((data) => {

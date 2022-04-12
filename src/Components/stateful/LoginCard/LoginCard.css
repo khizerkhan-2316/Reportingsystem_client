@@ -1,0 +1,86 @@
+.login__main__container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.sidebar__login__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 20%;
+  background-color: var(--background-color);
+}
+
+.login-hero-image {
+  width: 80%;
+  height: 100vh;
+  background-image: url(../../../Assets/Images/login-hero-image.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login-form {
+  width: 80%;
+  height: 40%;
+  border-radius: 0px;
+  background: var(--component-color);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--box-shadow);
+}
+
+.login-form:hover {
+  transition: 0.3s ease;
+  box-shadow: var(--box-shadow-hover);
+}
+
+.login-form-content {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form-content h1 {
+  font-family: var(--heading-font-family);
+  font-size: 25px;
+  color: var(--text-color);
+}
+
+.input-field {
+  width: 80%;
+  margin: 10px 0px 10px 0px;
+  padding: 15px 5px 15px 5px;
+  text-indent: 5px;
+  background-color: var(--component-color);
+  border: var(--border);
+  font-family: var(--text-font-family);
+  font-size: 18px;
+  outline: none;
+  border-radius: var(--border-radius);
+  color: var(--inputfield-color);
+}
+
+input::-webkit-input-placeholder,
+input:-ms-input-placeholder,
+input::placeholder {
+  color: var(--inputfield-color);
+  font-family: var(--text-font-family);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--component-color) inset !important;
+  -webkit-text-fill-color: var(--inputfield-color) !important;
+}

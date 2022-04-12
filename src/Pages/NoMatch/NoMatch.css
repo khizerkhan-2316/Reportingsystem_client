@@ -1,0 +1,38 @@
+.not-found-main-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-found-content {
+  width: 30%;
+  height: 50%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.not-found-content h1 {
+  font-size: 100px;
+}
+.not-found-content p {
+  font-size: 25px;
+}
+
+.not-found-content a {
+  font-size: 20px;
+  text-decoration: none;
+  color: var(--text-color);
+  border-radius: var(--border-radius);
+  padding: 20px 30px 20px 30px;
+  box-shadow: var(--box-shadow);
+  background-color: var(--component-color);
+}
+
+.not-found-content a:hover {
+  transition: 0.3s;
+  box-shadow: var(--box-shadow-hover);
+}

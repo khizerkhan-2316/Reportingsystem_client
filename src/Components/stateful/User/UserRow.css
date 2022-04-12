@@ -1,0 +1,18 @@
+.user-row {
+  width: 95%;
+  height: 65px;
+  box-shadow: var(--box-shadow);
+  background-color: var(--component-color);
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+}
+
+.user-row td {
+  text-align: center;
+  font-family: var(--text-font-family);
+}
+
+.user-row img {
+  width: 25px;
+  cursor: pointer;
+}

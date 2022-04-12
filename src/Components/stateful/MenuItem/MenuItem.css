@@ -1,0 +1,130 @@
+aside img {
+  width: 30px;
+}
+
+.list-item-icon > li,
+.dropdown-nav > li {
+  margin-left: 10px;
+}
+
+.list-item-icon,
+.dropdown-nav {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  width: 60%;
+  position: relative;
+}
+
+.dropdown-content-nav {
+  display: none;
+  position: absolute;
+  min-width: 200px;
+  padding: 12px 16px;
+  z-index: 1;
+  left: 30px;
+  top: 100%;
+}
+
+.list-item-icon a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+@media screen and (min-width: 1600px) {
+  .navigation-list-container {
+    width: 13.5%;
+  }
+
+  .list-item-icon,
+  .dropdown-nav {
+    margin-left: 18%;
+  }
+}
+
+@media screen and (min-width: 1500px) and (max-width: 1599px) {
+  .navigation-list-container {
+    width: 15%;
+  }
+
+  .list-item-icon,
+  .dropdown-nav {
+    margin-left: 15%;
+  }
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1499px) {
+  .navigation-list-container {
+    width: 16%;
+  }
+
+  .list-item-icon,
+  .dropdown-nav {
+    margin-left: 14%;
+  }
+}
+
+@media screen and (min-width: 1300px) and (max-width: 1399px) {
+  .navigation-list-container {
+    width: 17%;
+  }
+
+  .list-item-icon,
+  .dropdown-nav {
+    margin-left: 13%;
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1299px) {
+  .navigation-list-container {
+    width: 19%;
+  }
+
+  .list-item-icon,
+  .dropdown-nav {
+    margin-left: 12%;
+  }
+}
+
+@media screen and (min-width: 1100px) and (max-width: 1199px) {
+  .navigation-list-container {
+    width: 20%;
+  }
+
+  .list-item-icon,
+  .dropdown-nav {
+    margin-left: 12%;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1099px) {
+  .navigation-list-container {
+    width: 22%;
+  }
+
+  .list-item-icon,
+  .dropdown-nav {
+    margin-left: 12%;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .navigation-list-container {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+  }
+
+  .navigation-list-container ul {
+    align-items: center;
+    margin: 0;
+  }
+
+  .list-item-icon,
+  .dropdown-nav {
+    justify-content: center;
+  }
+}

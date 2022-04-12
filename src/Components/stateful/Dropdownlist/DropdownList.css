@@ -1,0 +1,155 @@
+.dropdown {
+  width: 300px;
+  padding: 15px 20px 15px 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-flow: column;
+  align-items: space-between;
+  background-color: var(--component-color);
+  box-shadow: var(--box-shadow);
+}
+
+.dropdown:hover {
+  transition: 0.3s ease;
+  box-shadow: var(--box-shadow-hover);
+}
+
+#remove-filter-box {
+  font-family: var(--text-font-family);
+  background-color: var(--component-color);
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  margin-top: -45px;
+  font-size: 13px;
+  margin-left: -20px;
+  cursor: pointer;
+}
+
+.dropdown-list {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  max-height: 180px;
+  margin-left: -20px;
+  margin-top: 45px;
+  z-index: 1;
+  border-radius: var(--border-radius);
+  justify-content: flex-start;
+  background-color: var(--component-color);
+}
+
+.dropdown-content div {
+  border-radius: 5px;
+  padding: 6px 0px 6px 20px;
+  font-family: var(--text-font-family);
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.show {
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: column;
+}
+
+.hide {
+  display: none;
+}
+
+.dropdown-list img {
+  width: 25px;
+}
+
+@media screen and (min-width: 1440px) {
+  .dropdown {
+    width: 14.7%;
+  }
+
+  .dropdown-content {
+    min-width: 12%;
+  }
+}
+
+@media screen and (min-width: 900px) and (max-width: 1439px) {
+  .dropdown {
+    width: 22%;
+  }
+
+  .dropdown-content {
+    min-width: 19.5%;
+  }
+}
+
+@media screen and (min-width: 550px) and (max-width: 899px) {
+  .dropdown {
+    width: 35%;
+    font-size: 15px;
+  }
+
+  .dropdown-content {
+    min-width: 31.5%;
+  }
+}
+
+@media screen and (max-width: 549px) {
+  .dropdown {
+    width: 45%;
+    margin-top: 40px;
+  }
+
+  .dropdown-content {
+    min-width: 40%;
+  }
+}
+
+@media screen and (max-width: 431px) {
+  .dropdown {
+    width: 50%;
+    margin-top: 40px;
+  }
+
+  .dropdown-content {
+    min-width: 45%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .dropdown {
+    width: 55%;
+    margin-top: 40px;
+  }
+
+  .dropdown-content {
+    min-width: 50%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .dropdown {
+    width: 60%;
+    margin-top: 40px;
+  }
+
+  .dropdown-content {
+    min-width: 55%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .dropdown {
+    width: 65%;
+    margin-top: 40px;
+  }
+
+  .dropdown-content {
+    min-width: 60%;
+  }
+}

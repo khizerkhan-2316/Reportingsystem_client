@@ -7,7 +7,7 @@ const LoginAdmin = ({ setAdminAuthenticated, setUserAutenticated }) => {
 
   return (
     <LoginCard
-      url={`${process.env.REACT_APP_BASE_ENDPOINT}/api/users/login-admin`}
+      url={`${process.env.REACT_APP_BASE_SERVER_ENDPOINT}/api/users/login-admin`}
       heading={'Admin Login'}
       setAuthentication={setAdminAuthenticated}
       storageKey={process.env.REACT_APP_ADMIN_AUTENTICATED_KEY}

@@ -3,6 +3,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Asul:wght@700&display=swap');
+
+/*:root {
+  --background-color: hsl(0, 0%, 98%);
+  --component-color: hsl(0, 0%, 100%);
+  --button-background-color: #fe5000;
+  --button-color: #000;
+  --modal-top-color: #2b3945;
+  --inputfield-color: black;
+  --text-color: hsl(200, 15%, 8%);
+  --heading-font-family: 'Playfair Display', serif;
+  --text-font-family: 'EB Garamond', serif;
+  --box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  --box-shadow-hover: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  --border-radius: 5px;
+  --border: 1px solid black;
+} */
+
 :root {
   --background-color: #202c37;
   --component-color: #2b3945;

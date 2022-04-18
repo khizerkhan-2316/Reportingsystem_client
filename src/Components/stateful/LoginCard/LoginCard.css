@@ -15,6 +15,7 @@
   width: 100%;
   background-color: var(--background-color);
   background-image: url(../../../Assets/Images/login-hero-image.jpg);
+  background-position: center;
 }
 
 .login-form {
@@ -76,4 +77,21 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px var(--component-color) inset !important;
   -webkit-text-fill-color: var(--inputfield-color) !important;
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1419px) {
+  .login-form {
+  }
+}
+@media screen and (max-width: 1024px) {
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 425px) {
+  .login-form {
+    width: 80%;
+    height: 50%;
+  }
 }

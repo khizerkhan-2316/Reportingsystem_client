@@ -4,23 +4,32 @@ import FilterOption from '../FilterOption/FilterOption.js';
 import { useState } from 'react';
 
 const DropdownList = (props) => {
+  const {
+    setIsStateSelected,
+    setStateSelected,
+    isStateSelected,
+    stateSelected,
+  } = props;
   const [isListActive, setIsListActive] = useState(false);
-  const filters = ['created at', 'test', 'Henaf'];
+  const filters = ['Active', 'Inactive'];
 
   return (
     <>
       <section className="dropdown">
         <div
-          id={
-            props.region === '' ? 'remove-filter-box hide' : 'remove-filter-box'
-          }
+          id={!isStateSelected ? 'remove-filter-box hide' : 'remove-filter-box'}
         >
-          <p onClick={() => {}}>
-            {props.region === '' ? 'Remove filter: ' + props.region : ''}
+          <p
+            onClick={() => {
+              setIsStateSelected(false);
+              setStateSelected(null);
+            }}
+          >
+            {isStateSelected ? 'Remove filter: ' + stateSelected : ''}
           </p>
         </div>
         <section className="dropdown-list">
-          <h4>Filter by region</h4>
+          <h4>Filter by state</h4>
           <img
             src={dropdownIcon}
             alt="Dropdown list icon"
@@ -40,17 +49,15 @@ const DropdownList = (props) => {
           }
           id="myDropdown"
         >
-          {filters.map((region, index) => {
+          {filters.map((state, index) => {
             return (
               <FilterOption
-                nameValue={region}
-                region={props.region}
-                onClick={props.onClick}
-                displayByRegion={props.displayByRegion}
-                countries={props.countries}
+                state={state}
+                setStateSelected={setStateSelected}
+                setIsStateSelected={setIsStateSelected}
+                key={index}
                 isListActive={isListActive}
                 setIsListActive={setIsListActive}
-                key={index}
               />
             );
           })}

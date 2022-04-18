@@ -28,3 +28,9 @@
   width: 29px;
   padding-left: 15px;
 }
+
+@media screen and (max-width: 549px) {
+  .searchbar-container {
+    width: 90%;
+  }
+}

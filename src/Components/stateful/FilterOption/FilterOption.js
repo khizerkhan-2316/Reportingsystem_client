@@ -1,15 +1,21 @@
 const FilterOption = (props) => {
+  const {
+    state,
+    setIsListActive,
+    isListActive,
+    setIsStateSelected,
+    setStateSelected,
+  } = props;
   return (
     <div
       className="dropdown-div"
       onClick={() => {
-        props.onClick(props.nameValue);
-        props.isListActive
-          ? props.setIsListActive(false)
-          : props.setIsListActive(true);
+        isListActive ? setIsListActive(false) : setIsListActive(true);
+        setStateSelected(state);
+        setIsStateSelected(true);
       }}
     >
-      <p>{props.nameValue}</p>
+      <p>{state}</p>
     </div>
   );
 };

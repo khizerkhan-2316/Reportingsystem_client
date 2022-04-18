@@ -2,20 +2,29 @@ import './HomeAdmin.css';
 import { getData } from '../../../utils/requests.js';
 import { useEffect, useState } from 'react';
 import Searchbar from '../../../Components/stateful/Searchbar/Searchbar.js';
-import UserRow from '../../../Components/stateful/User/UserRow.js';
+import UserRow from '../../../Components/stateful/UserRow/UserRow.js';
 import Modal from '../../../Components/stateful/Modal/Modal.js';
 import DropdownList from '../../../Components/stateful/Dropdownlist/DropdownList.js';
+
 const HomeAdmin = ({
   userAutenticated,
   adminAutenticated,
   setUserAutenticated,
 }) => {
   const [adminData, setAdminData] = useState('');
-  const [users, setUsers] = useState('');
+  const [users, setUsers] = useState(null);
   const [searchInput, setSearchInput] = useState('');
   const [text, setText] = useState('');
   const [heading, setHeading] = useState('');
   const [modalActive, setModalActive] = useState(false);
+  const [isStateSelected, setIsStateSelected] = useState(false);
+  const [stateSelected, setStateSelected] = useState('');
+
+  const setError = (message, heading) => {
+    setText(message);
+    setHeading(heading);
+    setModalActive(true);
+  };
 
   const initializeAllRequests = () => {
     const data = getData(
@@ -23,28 +32,90 @@ const HomeAdmin = ({
       `${process.env.REACT_APP_BASE_SERVER_ENDPOINT}/api/users/admin`
     );
 
-    data.then((data) => setAdminData(data));
+    data
+      .then((data) => setAdminData(data))
+      .catch((e) => {
+        setError(e, 'Error');
+      });
 
     const usersdata = getData(
       localStorage.getItem(process.env.REACT_APP_ADMIN_ACCESS_TOKEN_KEY),
       `${process.env.REACT_APP_BASE_SERVER_ENDPOINT}/api/users`
     );
 
-    usersdata.then((data) => {
-      setUsers(data);
-    });
+    usersdata
+      .then((data) => {
+        setUsers(data);
+      })
+      .catch((e) => {
+        setError(e, 'Error');
+      });
   };
 
+  const noSearch = () => {
+    return users !== '' && searchInput === '' && !isStateSelected;
+  };
+
+  const displayAllUsers = () => {
+    return users.map((user) => <UserRow key={user.dealerId} user={user} />);
+  };
+
+  const searchAndFilter = () => {
+    return users !== '' && searchInput !== '' && isStateSelected;
+  };
+
+  const displayBySearchAndFilter = () => {
+    return users.map((user) =>
+      user.name.toLowerCase().includes(searchInput.toLowerCase()) &&
+      user.state === stateSelected.toLowerCase() ? (
+        <UserRow key={user.dealerId} user={user} />
+      ) : (
+        ''
+      )
+    );
+  };
+
+  const searchAndNoFilter = () => {
+    return searchInput !== '' && !isStateSelected;
+  };
+
+  const displayBySearch = () => {
+    return users.map((user) =>
+      user.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
+        <UserRow key={user.dealerId} user={user} />
+      ) : (
+        ''
+      )
+    );
+  };
+
+  const filterAndNoSearch = () => {
+    return isStateSelected && searchInput === '';
+  };
+
+  const displayByFilter = () => {
+    return users.map((user) =>
+      user.state === stateSelected.toLowerCase() ? (
+        <UserRow key={user.dealerId} user={user} />
+      ) : (
+        ''
+      )
+    );
+  };
   const displayUsers = () => {
-    return users !== '' && searchInput === ''
-      ? users.map((user) => <UserRow key={user._id} user={user} />)
-      : users !== ''
-      ? users.map((user) =>
-          user.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
-            <UserRow key={user._id} user={user} />
-          ) : null
-        )
-      : '';
+    try {
+      return noSearch()
+        ? displayAllUsers()
+        : searchAndFilter()
+        ? displayBySearchAndFilter()
+        : searchAndNoFilter()
+        ? displayBySearch()
+        : filterAndNoSearch()
+        ? displayByFilter()
+        : null;
+    } catch (e) {
+      alert(e);
+    }
   };
 
   const clearQuery = () => {
@@ -65,16 +136,21 @@ const HomeAdmin = ({
         <Searchbar
           setSearchInput={setSearchInput}
           searchInput={searchInput}
-          placeholder={'Search for a username...'}
+          placeholder={'Search for a name...'}
           clearQuery={clearQuery}
         />
-        <DropdownList />
+        <DropdownList
+          isStateSelected={isStateSelected}
+          setIsStateSelected={setIsStateSelected}
+          stateSelected={stateSelected}
+          setStateSelected={setStateSelected}
+        />
       </div>
 
       <table className="content-table">
         <thead>
           <tr>
-            <th>
+            <th className="desktop-content">
               <h4>Identification</h4>
             </th>
             <th>
@@ -84,16 +160,20 @@ const HomeAdmin = ({
               <h4>Name</h4>
             </th>
 
-            <th>
+            <th className="desktop-content">
               <h4>Username</h4>
             </th>
 
-            <th>
+            <th className="desktop-content">
               <h4>Created</h4>
             </th>
 
             <th>
               <h4>State</h4>
+            </th>
+
+            <th>
+              <h4>Edit</h4>
             </th>
             <th>
               <h4>Dashboard</h4>
@@ -101,8 +181,7 @@ const HomeAdmin = ({
           </tr>
         </thead>
       </table>
-      {displayUsers()}
-
+      {users && displayUsers()}
       {modalActive ? (
         <Modal
           modalActive={modalActive}

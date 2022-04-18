@@ -19,7 +19,6 @@
   border-radius: var(--border-radius);
   background-color: var(--component-color);
   border-collapse: collapse;
-  min-width: 400px;
   overflow: hidden;
   margin-top: 20px;
   table-layout: fixed;
@@ -43,4 +42,31 @@
 .content-table th {
   text-align: center;
   height: 50px;
+}
+
+@media screen and (max-width: 900px) {
+  .desktop-content {
+    display: none;
+  }
+
+  .content-table h4 {
+    font-size: 15px;
+  }
+
+  .content-table td {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 549px) {
+  .seach-and-filter-container {
+    margin-top: 40px;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .content-table h4 {
+    font-size: 13px;
+  }
 }

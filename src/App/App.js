@@ -20,8 +20,6 @@ function App() {
   const [userAutenticated, setUserAutenticated] = useState(false);
   const [adminAutenticated, setAdminAuthenticated] = useState(false);
 
-  console.log(process.env.REACT_APP_BASE_SERVER_ENDPOINT);
-
   useEffect(() => {
     setUserAutenticated(
       isAuthenticated(process.env.REACT_APP_USER_AUTENTICATED_KEY)

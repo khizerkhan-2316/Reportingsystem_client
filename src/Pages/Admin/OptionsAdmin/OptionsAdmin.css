@@ -1,0 +1,49 @@
+.OptionsAdmin-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.Options-container {
+  width: 95%;
+  height: auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: space-around;
+  margin-top: 40px;
+}
+.Options-container h1 {
+  margin-left: 1.5%;
+}
+
+.Option {
+  width: 25%;
+  min-height: 250px;
+  background-color: var(--component-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.Option h2,
+.Option {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.specific-option {
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Option:hover {
+  transition: 0.3s ease;
+  box-shadow: var(--box-shadow-hover);
+}

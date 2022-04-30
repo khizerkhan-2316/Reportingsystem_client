@@ -5,20 +5,35 @@ import Searchbar from '../../../Components/stateful/Searchbar/Searchbar.js';
 import UserRow from '../../../Components/stateful/UserRow/UserRow.js';
 import Modal from '../../../Components/stateful/Modal/Modal.js';
 import DropdownList from '../../../Components/stateful/Dropdownlist/DropdownList.js';
+import { useLoading } from '../../../Context/LoadingContext.js';
+import Spinner from '../../../Components/stateless/Spinner/Spinner.js';
+import { useMemo } from 'react';
+import Pagination from '../../../Components/stateful/Pagination/Pagination.js';
+let PageSize = 6;
 
 const HomeAdmin = ({
   userAutenticated,
   adminAutenticated,
   setUserAutenticated,
 }) => {
+  const { loading, setLoading } = useLoading();
   const [adminData, setAdminData] = useState('');
-  const [users, setUsers] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState(users);
   const [searchInput, setSearchInput] = useState('');
   const [text, setText] = useState('');
   const [heading, setHeading] = useState('');
   const [modalActive, setModalActive] = useState(false);
   const [isStateSelected, setIsStateSelected] = useState(false);
   const [stateSelected, setStateSelected] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+
+    return filteredUsers.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, filteredUsers]);
 
   const setError = (message, heading) => {
     setText(message);
@@ -31,13 +46,14 @@ const HomeAdmin = ({
       localStorage.getItem(process.env.REACT_APP_ADMIN_ACCESS_TOKEN_KEY),
       `${process.env.REACT_APP_BASE_SERVER_ENDPOINT}/api/users/admin`
     );
-
+    setLoading(true);
     data
-      .then((data) => setAdminData(data))
+      .then((data) => {
+        setAdminData(data);
+      })
       .catch((e) => {
         setError(e, 'Error');
       });
-
     const usersdata = getData(
       localStorage.getItem(process.env.REACT_APP_ADMIN_ACCESS_TOKEN_KEY),
       `${process.env.REACT_APP_BASE_SERVER_ENDPOINT}/api/users`
@@ -46,7 +62,10 @@ const HomeAdmin = ({
     usersdata
       .then((data) => {
         setUsers(data);
+        setFilteredUsers(data);
+        setLoading(false);
       })
+
       .catch((e) => {
         setError(e, 'Error');
       });
@@ -57,7 +76,9 @@ const HomeAdmin = ({
   };
 
   const displayAllUsers = () => {
-    return users.map((user) => <UserRow key={user.dealerId} user={user} />);
+    return currentTableData.map((user) => (
+      <UserRow key={user.dealerId} user={user} />
+    ));
   };
 
   const searchAndFilter = () => {
@@ -65,7 +86,7 @@ const HomeAdmin = ({
   };
 
   const displayBySearchAndFilter = () => {
-    return users.map((user) =>
+    return currentTableData.map((user) =>
       user.name.toLowerCase().includes(searchInput.toLowerCase()) &&
       user.state === stateSelected.toLowerCase() ? (
         <UserRow key={user.dealerId} user={user} />
@@ -80,6 +101,12 @@ const HomeAdmin = ({
   };
 
   const displayBySearch = () => {
+    setFilteredUsers(
+      users.map((user) =>
+        user.name.toLowerCase().includes(searchInput.toLowerCase())
+      )
+    );
+
     return users.map((user) =>
       user.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
         <UserRow key={user.dealerId} user={user} />
@@ -94,7 +121,7 @@ const HomeAdmin = ({
   };
 
   const displayByFilter = () => {
-    return users.map((user) =>
+    return currentTableData.map((user) =>
       user.state === stateSelected.toLowerCase() ? (
         <UserRow key={user.dealerId} user={user} />
       ) : (
@@ -124,7 +151,6 @@ const HomeAdmin = ({
 
   useEffect(() => {
     initializeAllRequests();
-
     if (adminAutenticated && userAutenticated) {
       setUserAutenticated(false);
     }
@@ -147,12 +173,10 @@ const HomeAdmin = ({
         />
       </div>
 
+      {loading && <Spinner />}
       <table className="content-table">
         <thead>
           <tr>
-            <th className="desktop-content">
-              <h4>Identification</h4>
-            </th>
             <th>
               <h4>Dealer ID</h4>
             </th>
@@ -192,6 +216,14 @@ const HomeAdmin = ({
       ) : (
         ''
       )}
+
+      <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={filteredUsers.length}
+        pageSize={PageSize}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </div>
   );
 };

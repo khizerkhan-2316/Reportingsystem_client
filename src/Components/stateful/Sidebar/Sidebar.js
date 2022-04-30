@@ -20,12 +20,7 @@ const Sidebar = () => {
           heading="Criteo"
           path="/admin/criteo"
         />
-        <MenuItem
-          img={homeIcon}
-          alt="Home"
-          heading="Google Ads"
-          path="/admin/googleads"
-        />
+
         <MenuItem
           img={homeIcon}
           alt="home"

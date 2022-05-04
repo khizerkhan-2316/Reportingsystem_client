@@ -1,5 +1,5 @@
 import './HomeAdmin.css';
-import { getData } from '../../../utils/requests.js';
+import { getData } from '../../../utils/UserRequests.js';
 import { useEffect, useState } from 'react';
 import Searchbar from '../../../Components/stateful/Searchbar/Searchbar.js';
 import UserRow from '../../../Components/stateful/UserRow/UserRow.js';
@@ -101,12 +101,6 @@ const HomeAdmin = ({
   };
 
   const displayBySearch = () => {
-    setFilteredUsers(
-      users.map((user) =>
-        user.name.toLowerCase().includes(searchInput.toLowerCase())
-      )
-    );
-
     return users.map((user) =>
       user.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
         <UserRow key={user.dealerId} user={user} />

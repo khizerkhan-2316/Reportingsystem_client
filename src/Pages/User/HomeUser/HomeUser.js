@@ -1,5 +1,5 @@
 import './HomeUser.css';
-import { getData } from '../../../utils/requests.js';
+import { getData } from '../../../utils/UserRequests.js';
 import { useEffect, useState } from 'react';
 
 const HomeUser = ({

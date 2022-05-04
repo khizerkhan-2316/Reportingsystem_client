@@ -1,0 +1,44 @@
+.modalcard-main-container {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.modalcardContainer {
+  width: 25%;
+  min-height: 300px;
+  background-color: var(--background-color);
+  border-radius: 5px;
+  color: var(--text-color);
+  font-family: helvetica, arial, sans-serif;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding-bottom: 20px;
+}
+
+.modalcardHeading {
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: var(--modal-top-color);
+  font-family: var(--heading-font-family);
+  border-radius: 5px 5px 0px 0px;
+  box-shadow: var(--box-shadow);
+}
+
+.modalcardHeading h2 {
+  margin-left: 20px;
+}
+
+.modalcardContainer label {
+  font-family: var(--heading-font-family);
+}

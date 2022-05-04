@@ -3,7 +3,7 @@ import formatDate from '../../../utils/Format.js';
 import dashboardIcon from '../../../Assets/Images/dashboard-icon.png';
 import edit_icon from '../../../Assets/Images/edit-icon.png';
 import { useNavigate } from 'react-router-dom';
-import UserDialog from '../../../Components/stateful/UserDialog/UserDialog.js';
+import UserDialog from '../UpdateUser/UserDialog.js';
 import { useState } from 'react';
 
 const UserRow = ({ user }) => {

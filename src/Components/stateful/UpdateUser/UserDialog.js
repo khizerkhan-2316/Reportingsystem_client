@@ -1,7 +1,7 @@
 import './UserDialog.css';
 import Button from '../../stateless/Button/Button.js';
 import { useState } from 'react';
-import { UpdateUser } from '../../../utils/requests.js';
+import { UpdateUser } from '../../../utils/UserRequests.js';
 import Modal from '../Modal/Modal.js';
 import validator from 'validator';
 const UserDialog = ({ user, dialogHandler }) => {
@@ -13,6 +13,7 @@ const UserDialog = ({ user, dialogHandler }) => {
   const [stateInput, setStateInput] = useState(state);
   const [text, setText] = useState('');
   const [heading, setHeading] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
   const [modalActive, setModalActive] = useState(false);
 
   const nameHandler = (e) => {
@@ -31,6 +32,10 @@ const UserDialog = ({ user, dialogHandler }) => {
     setStateInput(e.target.value);
   };
 
+  const passwordHandler = (e) => {
+    setPasswordInput(e.target.value);
+  };
+
   const setError = (message, heading) => {
     setText(message);
     setHeading(heading);
@@ -38,7 +43,7 @@ const UserDialog = ({ user, dialogHandler }) => {
   };
 
   const submitHandler = async () => {
-    if (!validateFields(nameInput, usernameInput, emailInput)) {
+    if (!validateFields(nameInput, usernameInput, emailInput, passwordInput)) {
       setError('Invalid Inputs', 'Check fields!');
       return;
     }
@@ -48,19 +53,32 @@ const UserDialog = ({ user, dialogHandler }) => {
         username: usernameInput,
         email: emailInput,
         state: stateInput,
+        password: passwordInput,
       };
 
-      const request = await UpdateUser(body, dealerId);
+      const request = await UpdateUser(
+        body,
+        dealerId,
+        localStorage.getItem(process.env.REACT_APP_ADMIN_ACCESS_TOKEN_KEY)
+      );
       await checkRequest(request);
     } catch (e) {
       setError(e, 'Error');
     }
   };
 
-  const validateFields = (nameInput, usernameInput, emailInput) => {
+  const validateFields = (
+    nameInput,
+    usernameInput,
+    emailInput,
+    passwordInput
+  ) => {
     const emailIsValid = validator.isEmail(emailInput);
 
-    return nameInput !== '' && usernameInput !== '' && emailIsValid
+    return nameInput !== '' &&
+      usernameInput !== '' &&
+      emailIsValid &&
+      passwordInput !== ''
       ? true
       : false;
   };
@@ -107,6 +125,14 @@ const UserDialog = ({ user, dialogHandler }) => {
               type="text"
               value={emailInput}
               onChange={emailHandler}
+              required
+            />
+
+            <label htmlFor="password">Password:</label>
+            <input
+              name="password"
+              type="password"
+              onChange={passwordHandler}
               required
             />
 

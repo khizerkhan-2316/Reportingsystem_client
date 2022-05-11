@@ -3,6 +3,7 @@ import CreateUser from '../../../Components/stateful/CreateUser/CreateUser.js';
 import Button from '../../../Components/stateless/Button/Button.js';
 import Modal from '../../../Components/stateful/Modal/Modal.js';
 import { insertCriteoStats } from '../../../utils/admin/CriteoRequests.js';
+import { insertAnalyticsStats } from '../../../utils/admin/AnalyticsRequest.js';
 import { useLoading } from '../../../Context/LoadingContext.js';
 import Spinner from '../../../Components/stateless/Spinner/Spinner.js';
 import { updateAllUsers } from '../../../utils/UserRequests.js';
@@ -45,6 +46,29 @@ const OptionAdmin = (props) => {
     }
   };
 
+  const insertAnalyticsStatsHandler = async () => {
+    try {
+      setLoading(true);
+      const response = await insertAnalyticsStats(
+        localStorage.getItem(process.env.REACT_APP_ADMIN_ACCESS_TOKEN_KEY)
+      );
+
+      const jsonResponse = await response.json();
+
+      buttonHandler(setIsMessageModalOpen);
+      setLoading(false);
+      if (jsonResponse.success) {
+        setText(jsonResponse.message);
+        setHeading('Inserted!');
+      }
+    } catch (e) {
+      buttonHandler(setIsMessageModalOpen);
+      setLoading(false);
+      setHeading('Error!');
+      setText(e);
+    }
+  };
+
   const updateAllUsersHandler = async () => {
     setLoading(true);
 
@@ -59,6 +83,9 @@ const OptionAdmin = (props) => {
       if (jsonResponse.success) {
         setText(jsonResponse.message);
         setHeading('Updated users!');
+      } else {
+        setText('Uanble to update users!');
+        setHeading('Try inserting monthly stats!');
       }
     } catch (e) {
       setLoading(false);
@@ -142,7 +169,7 @@ const OptionAdmin = (props) => {
 
             <div className="specific-option">
               <p>Insert previous month Google analytics in DB</p>
-              <Button>Insert</Button>
+              <Button onClick={insertAnalyticsStatsHandler}>Insert</Button>
             </div>
 
             <div className="specific-option">

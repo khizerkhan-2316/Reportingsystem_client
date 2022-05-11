@@ -101,7 +101,7 @@ const HomeAdmin = ({
   };
 
   const displayBySearch = () => {
-    return users.map((user) =>
+    return currentTableData.map((user) =>
       user.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
         <UserRow key={user.dealerId} user={user} />
       ) : (

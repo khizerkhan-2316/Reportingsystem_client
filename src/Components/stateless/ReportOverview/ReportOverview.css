@@ -1,0 +1,52 @@
+.reporting-overview {
+  min-width: 30%;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  background-color: var(--component-color);
+  border-collapse: collapse;
+  margin-top: 20px;
+  table-layout: fixed;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.reporting-overview h4 {
+  color: var(--text-color);
+}
+
+.reporting-overview th {
+  text-align: left;
+  border: 0.1px 0px 0.1px 0px solid white;
+  border-width: thin;
+}
+
+.reporting-overview th {
+  border-left: 0.1px solid white;
+  border-width: thin;
+
+  padding: 20px 10px 20px 10px;
+}
+
+.reporting-overview tr {
+  color: white;
+  text-align: left;
+  border: 0.1px solid white;
+  border-width: thin;
+}
+
+.reporting-overview tbody tr td {
+  text-align: left;
+  margin-left: 5px;
+  font-family: var(--text-font-family);
+  padding: 10px;
+}
+
+.reporting-overview tbody tr td {
+  border-left: 1px solid white;
+  border-width: thin;
+}
+
+.reporting-overview td {
+  text-align: center;
+  font-family: var(--text-font-family);
+}

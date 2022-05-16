@@ -1,0 +1,13 @@
+.reports-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  overflow: scroll;
+  overflow-y: hidden;
+}
+
+#report-table {
+  border-right: 0px;
+}

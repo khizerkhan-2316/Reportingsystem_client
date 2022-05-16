@@ -7,9 +7,6 @@ import Modal from '../../../Components/stateful/Modal/Modal.js';
 import DropdownList from '../../../Components/stateful/Dropdownlist/DropdownList.js';
 import { useLoading } from '../../../Context/LoadingContext.js';
 import Spinner from '../../../Components/stateless/Spinner/Spinner.js';
-import { useMemo } from 'react';
-import Pagination from '../../../Components/stateful/Pagination/Pagination.js';
-let PageSize = 6;
 
 const HomeAdmin = ({
   userAutenticated,
@@ -19,21 +16,12 @@ const HomeAdmin = ({
   const { loading, setLoading } = useLoading();
   const [adminData, setAdminData] = useState('');
   const [users, setUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState(users);
   const [searchInput, setSearchInput] = useState('');
   const [text, setText] = useState('');
   const [heading, setHeading] = useState('');
   const [modalActive, setModalActive] = useState(false);
   const [isStateSelected, setIsStateSelected] = useState(false);
   const [stateSelected, setStateSelected] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const currentTableData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
-
-    return filteredUsers.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, filteredUsers]);
 
   const setError = (message, heading) => {
     setText(message);
@@ -62,7 +50,6 @@ const HomeAdmin = ({
     usersdata
       .then((data) => {
         setUsers(data);
-        setFilteredUsers(data);
         setLoading(false);
       })
 
@@ -76,9 +63,7 @@ const HomeAdmin = ({
   };
 
   const displayAllUsers = () => {
-    return currentTableData.map((user) => (
-      <UserRow key={user.dealerId} user={user} />
-    ));
+    return users.map((user) => <UserRow key={user.dealerId} user={user} />);
   };
 
   const searchAndFilter = () => {
@@ -86,7 +71,7 @@ const HomeAdmin = ({
   };
 
   const displayBySearchAndFilter = () => {
-    return currentTableData.map((user) =>
+    return users.map((user) =>
       user.name.toLowerCase().includes(searchInput.toLowerCase()) &&
       user.state === stateSelected.toLowerCase() ? (
         <UserRow key={user.dealerId} user={user} />
@@ -101,7 +86,7 @@ const HomeAdmin = ({
   };
 
   const displayBySearch = () => {
-    return currentTableData.map((user) =>
+    return users.map((user) =>
       user.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
         <UserRow key={user.dealerId} user={user} />
       ) : (
@@ -115,7 +100,7 @@ const HomeAdmin = ({
   };
 
   const displayByFilter = () => {
-    return currentTableData.map((user) =>
+    return users.map((user) =>
       user.state === stateSelected.toLowerCase() ? (
         <UserRow key={user.dealerId} user={user} />
       ) : (
@@ -168,6 +153,7 @@ const HomeAdmin = ({
       </div>
 
       {loading && <Spinner />}
+      {console.log(displayUsers())}
       <table className="content-table">
         <thead>
           <tr>
@@ -210,14 +196,6 @@ const HomeAdmin = ({
       ) : (
         ''
       )}
-
-      <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={filteredUsers.length}
-        pageSize={PageSize}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import './HomeUser.css';
 import { getData } from '../../../utils/UserRequests.js';
 import { useEffect, useState } from 'react';
+import Report from '../../../Components/stateless/Report/Report';
+import ReportOverview from '../../../Components/stateless/ReportOverview/ReportOverview';
 
 const HomeUser = ({
   setUserAutenticated,
@@ -9,15 +11,32 @@ const HomeUser = ({
   setAdminAuthenticated,
 }) => {
   const [userData, setUserData] = useState('');
+  const [reports, setReports] = useState(null);
+  const [isReportsFetched, setIsReportsFetched] = useState(false);
 
-  useEffect(() => {
-    const data = getData(
+  const loadAllData = async () => {
+    const data = await getData(
       localStorage.getItem(process.env.REACT_APP_USER_ACCESS_TOKEN_KEY),
       `${process.env.REACT_APP_BASE_SERVER_ENDPOINT}/api/users/profile`
     );
 
-    data.then((data) => setUserData(data));
+    setUserData(data);
+  };
 
+  const reportHandler = async () => {
+    if (userData !== '') {
+      const reports = await getData(
+        localStorage.getItem(process.env.REACT_APP_USER_ACCESS_TOKEN_KEY),
+        `${process.env.REACT_APP_BASE_SERVER_ENDPOINT}/api/reports/${userData.dealerId}`
+      );
+
+      setReports(reports.data);
+      setIsReportsFetched(true);
+    }
+  };
+
+  useEffect(() => {
+    loadAllData();
     if (userAutenticated && adminAutenticated) {
       setAdminAuthenticated(false);
     }
@@ -28,10 +47,21 @@ const HomeUser = ({
     localStorage.removeItem(process.env.REACT_APP_USER_ACCESS_TOKEN_KEY);
     setUserAutenticated(false);
   };
+
   return (
-    <div>
-      <h1>welcome {userData.name}</h1>
+    <div className="homeuser">
+      <h1>Welcome {userData.name}</h1>
+
+      <h2>Overblik:</h2>
+      {reports && <ReportOverview reports={reports} />}
+
+      <h2>Detaljeret: </h2>
+      {reports && <Report reports={reports} />}
+
       <button onClick={logoutHandler}>Log out</button>
+      <button onClick={reportHandler} disabled={isReportsFetched}>
+        Fetch Reports
+      </button>
     </div>
   );
 };

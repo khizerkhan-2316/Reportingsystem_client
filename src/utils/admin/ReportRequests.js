@@ -1,9 +1,9 @@
-const insertCriteoStats = async (token, url, type) => {
+const createReports = async (token) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_BASE_SERVER_ENDPOINT}${url}`,
+      `${process.env.REACT_APP_BASE_SERVER_ENDPOINT}/api/reports`,
       {
-        method: type,
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
@@ -17,4 +17,4 @@ const insertCriteoStats = async (token, url, type) => {
   }
 };
 
-export { insertCriteoStats };
+export { createReports };

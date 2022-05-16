@@ -29,7 +29,12 @@
 }
 
 .Option h2,
-.Option {
+.Option,
+.criteo-container h2,
+.criteo-container input,
+.criteo-container label,
+.criteo-container button,
+.criteo-container p {
   margin-left: 20px;
   margin-top: 10px;
 }
@@ -46,4 +51,20 @@
 .Option:hover {
   transition: 0.3s ease;
   box-shadow: var(--box-shadow-hover);
+}
+
+.criteo-container {
+  width: 94%;
+  min-height: 300px;
+  margin-top: 20px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: var(--text-color);
+  font-family: var(--text-font-family);
+  background-color: var(--component-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin-left: 20px;
 }

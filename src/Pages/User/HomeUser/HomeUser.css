@@ -1,0 +1,14 @@
+.homeuser h1,
+.homeuser h2 {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.homeuser {
+  width: 100%;
+}
+
+.scrollable-reporting-container {
+  width: 100%;
+  overflow: scroll;
+}

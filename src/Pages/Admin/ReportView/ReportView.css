@@ -1,0 +1,40 @@
+.report-table {
+  width: 95%;
+  height: 65px;
+  box-shadow: var(--box-shadow);
+  background-color: var(--component-color);
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+  border-collapse: collapse;
+  overflow: hidden;
+  margin-top: 30px;
+  table-layout: fixed;
+}
+
+.reportview-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.report-table th {
+  text-align: center;
+  height: 50px;
+}
+
+.report-table td {
+  text-align: center;
+}
+
+.reportview-headers {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.reportview-header {
+  margin-left: 3%;
+  margin-top: 2%;
+}

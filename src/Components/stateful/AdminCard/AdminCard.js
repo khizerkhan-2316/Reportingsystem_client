@@ -1,14 +1,12 @@
 import validator from 'validator';
 import { useState } from 'react';
 import ModalCard from '../ModalCard/ModalCard';
-import { createAdmin } from '../../../utils/admin/AdminRequests.js';
 import Modal from '../Modal/Modal.js';
 import Button from '../../stateless/Button/Button.js';
 
 const CreateAdmin = ({
   isCreatedAdminModalOpen,
   setIsCreatedAdminModalOpen,
-  inputRequest,
 }) => {
   const [nameInput, setNameInput] = useState('');
   const [usernameInput, setUsernameInput] = useState('');
@@ -62,6 +60,28 @@ const CreateAdmin = ({
       : false;
   };
 
+  const createAdmin = async (body) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_SERVER_ENDPOINT}/api/users/register-admin`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem(
+              process.env.REACT_APP_ADMIN_ACCESS_TOKEN_KEY
+            ),
+          },
+          body: JSON.stringify(body),
+        }
+      );
+
+      return response;
+    } catch (e) {
+      return e;
+    }
+  };
+
   const submitHandler = async () => {
     if (!validateFields(nameInput, usernameInput, emailInput, passwordInput)) {
       setMessage('Invalid Inputs', 'Check fields!');
@@ -76,7 +96,7 @@ const CreateAdmin = ({
         password: passwordInput,
       };
 
-      const request = await inputRequest(body);
+      const request = await createAdmin(body);
       await checkRequest(request);
     } catch (e) {
       setMessage(e, 'Error');

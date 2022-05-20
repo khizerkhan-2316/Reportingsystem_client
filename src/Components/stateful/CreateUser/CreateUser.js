@@ -1,5 +1,4 @@
 import ModalCard from '../ModalCard/ModalCard';
-import './CreateUser.css';
 import Button from '../../stateless/Button/Button.js';
 import { useState } from 'react';
 import validator from 'validator';

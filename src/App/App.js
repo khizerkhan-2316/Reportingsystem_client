@@ -8,8 +8,11 @@ import HomeAdmin from '../Pages/Admin/HomeAdmin/HomeAdmin.js';
 import LoginUser from '../Pages/User/LoginUser/LoginUser.js';
 import HomeUser from '../Pages/User/HomeUser/HomeUser.js';
 import OptionsAdmin from '../Pages/Admin/OptionsAdmin/OptionsAdmin.js';
+import ReportView from '../Pages/Admin/ReportView/ReportView.js';
+import CriteoDashboard from '../Pages/Admin/CriteoDashboard/CriteoDashboard';
 import { isAuthenticated } from '../utils/Auth';
 import { useState, useEffect } from 'react';
+import UserDashboard from '../Pages/Admin/UserDashboard/UserDashboard';
 
 import {
   BrowserRouter as Router,
@@ -40,6 +43,7 @@ function App() {
               <Navigationbar setAdminAuthenticated={setAdminAuthenticated} />
             </div>
           )}
+
           {adminAutenticated && (
             <div className="side-app-container">
               <Sidebar />
@@ -82,6 +86,18 @@ function App() {
 
               <Route
                 exact
+                path={`/admin/users`}
+                element={
+                  adminAutenticated ? (
+                    <UserDashboard />
+                  ) : (
+                    <Navigate to="/admin-login" />
+                  )
+                }
+              />
+
+              <Route
+                exact
                 path="/admin"
                 element={
                   adminAutenticated ? (
@@ -95,6 +111,7 @@ function App() {
                   )
                 }
               />
+
               <Route
                 exact
                 path="/admin-login"
@@ -120,6 +137,23 @@ function App() {
                     <Navigate to="/admin-login" />
                   )
                 }
+              />
+              <Route
+                exact
+                path="admin/reports"
+                element={
+                  adminAutenticated ? (
+                    <ReportView />
+                  ) : (
+                    <Navigate to="/admin-login" />
+                  )
+                }
+              />
+
+              <Route
+                exact
+                path="admin/criteo"
+                element={adminAutenticated ? <CriteoDashboard /> : ''}
               />
 
               <Route path="*" element={<NoMatch />} />

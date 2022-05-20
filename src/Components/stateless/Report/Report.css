@@ -4,7 +4,7 @@
   display: flex;
   flex-flow: row;
   justify-content: flex-start;
-  overflow: scroll;
+  overflow: scrollable;
   overflow-y: hidden;
 }
 

@@ -1,5 +1,4 @@
 import './ReportOverview.css';
-
 import { useEffect, useState } from 'react';
 
 const ReportOverview = ({ reports }) => {
@@ -23,6 +22,10 @@ const ReportOverview = ({ reports }) => {
       year: 'numeric',
     })}`;
   };
+  //
+  const formatNumber = (number) => {
+    return number.toLocaleString('dk-DK', { maximumFractionDigits: 2 });
+  };
 
   const calculateDataFromReport = (reports, attribute) => {
     let total = 0;
@@ -34,17 +37,24 @@ const ReportOverview = ({ reports }) => {
   };
 
   const calculatePricePerConversion = (cost, conversions) => {
+    if (conversions === 0) {
+      return 0;
+    }
     const price = (cost / conversions).toFixed(2);
     return `${price} kr`;
   };
+
+  const calculateCTR = (clicks, impressions) => {
+    return (clicks / impressions) * 100;
+  };
   useEffect(() => {
     setPeriod(calculatePeriod(reports));
-    setCTR(calculateDataFromReport(reports, 'ctr'));
     setImpressions(calculateDataFromReport(reports, 'impressions'));
     setClicks(calculateDataFromReport(reports, 'clicks'));
     setCost(calculateDataFromReport(reports, 'cost'));
     setConversions(calculateDataFromReport(reports, 'monthlyConversions'));
     setPricePerConversion(calculatePricePerConversion(cost, conversions));
+    setCTR(calculateCTR(clicks, impressions));
   }, [cost, conversions]);
 
   return (
@@ -76,21 +86,21 @@ const ReportOverview = ({ reports }) => {
         <tbody>
           <tr>
             <td>CTR:</td>
-            <td>{CTR} %</td>
+            <td>{formatNumber(CTR)} %</td>
           </tr>
 
           <tr>
             <td>Eksponeringer:</td>
-            <td>{impressions}</td>
+            <td>{formatNumber(impressions)}</td>
           </tr>
 
           <tr>
             <td>Klik:</td>
-            <td>{clicks}</td>
+            <td>{formatNumber(clicks)}</td>
           </tr>
           <tr>
             <td>Forbrug:</td>
-            <td>{cost}</td>
+            <td>{formatNumber(cost)}</td>
           </tr>
           <tr>
             <td>Konverteringer:</td>
@@ -106,7 +116,7 @@ const ReportOverview = ({ reports }) => {
               <h4>Pris pr. konvertering:</h4>
             </th>
             <th>
-              <h4>{pricePerConversion}</h4>
+              <h4>{`${formatNumber(pricePerConversion)} kr`}</h4>
             </th>
           </tr>
         </thead>

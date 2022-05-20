@@ -3,6 +3,7 @@ import { getData } from '../../../utils/UserRequests.js';
 import { useEffect, useState } from 'react';
 import Report from '../../../Components/stateless/Report/Report';
 import ReportOverview from '../../../Components/stateless/ReportOverview/ReportOverview';
+import Button from '../../../Components/stateless/Button/Button';
 
 const HomeUser = ({
   setUserAutenticated,
@@ -58,10 +59,11 @@ const HomeUser = ({
       <h2>Detaljeret: </h2>
       {reports && <Report reports={reports} />}
 
-      <button onClick={logoutHandler}>Log out</button>
-      <button onClick={reportHandler} disabled={isReportsFetched}>
+      <Button onClick={reportHandler} disabled={isReportsFetched}>
         Fetch Reports
-      </button>
+      </Button>
+
+      <Button onClick={logoutHandler}>Log out</Button>
     </div>
   );
 };

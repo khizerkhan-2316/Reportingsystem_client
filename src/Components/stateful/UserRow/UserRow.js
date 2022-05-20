@@ -5,8 +5,9 @@ import edit_icon from '../../../Assets/Images/edit-icon.png';
 import { useNavigate } from 'react-router-dom';
 import UserDialog from '../UpdateUser/UserDialog.js';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const UserRow = ({ user }) => {
+const UserRow = ({ user, setSelectedDealerId }) => {
   const { dealerId, name, username, state, createdAt } = user;
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -15,10 +16,8 @@ const UserRow = ({ user }) => {
     isDialogOpen ? setIsDialogOpen(false) : setIsDialogOpen(true);
   };
 
-  const navigate = useNavigate();
-
   const redirectHandler = () => {
-    navigate(`/admin/users/${dealerId}`);
+    localStorage.setItem('selectedDealerid', dealerId);
   };
 
   return (
@@ -35,11 +34,13 @@ const UserRow = ({ user }) => {
               <img src={edit_icon} alt="Edit user" onClick={dialogHandler} />
             </td>
             <td>
-              <img
-                src={dashboardIcon}
-                alt="dashboard"
-                onClick={redirectHandler}
-              />
+              <Link to={`/admin/users`}>
+                <img
+                  src={dashboardIcon}
+                  alt="dashboard"
+                  onClick={redirectHandler}
+                />{' '}
+              </Link>
             </td>
           </tr>
         </tbody>

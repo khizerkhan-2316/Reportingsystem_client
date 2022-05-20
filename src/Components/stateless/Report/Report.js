@@ -1,8 +1,44 @@
 import './Report.css';
 import { useState, useEffect } from 'react';
 const Report = ({ reports }) => {
-  useEffect(() => {}, []);
+  const [totalCTR, setTotalCTR] = useState('');
+  const [totalImpressions, setTotalImpressions] = useState('');
+  const [totalClicks, setTotalClicks] = useState('');
+  const [totalCost, setTotalCost] = useState('');
+  const [totalMail, setTotalMail] = useState('');
+  const [totalPhone, setTotalPhone] = useState('');
+  const [totalOtherAds, setTotalOtherAds] = useState('');
+  const [totalShared, setTotalShared] = useState('');
+  const [totalClickHomepage, setTotalClickHomepage] = useState('');
+  const [totalFavorite, setTotalFavorite] = useState('');
+  const [totalMonthlyConversions, setTotalMonthlyConversions] = useState('');
+  const [totalPricePerConversion, setTotalPricePerConversion] = useState('');
 
+  useEffect(() => {
+    setTotalImpressions(calculateTotalData(reports, 'impressions'));
+    setTotalClicks(calculateTotalData(reports, 'clicks'));
+    setTotalCost(calculateTotalData(reports, 'cost'));
+    setTotalMail(calculateTotalData(reports, 'mail'));
+    setTotalPhone(calculateTotalData(reports, 'phone'));
+    setTotalOtherAds(calculateTotalData(reports, 'otherAds'));
+    setTotalShared(calculateTotalData(reports, 'shared'));
+    setTotalClickHomepage(calculateTotalData(reports, 'clickHomepage'));
+    setTotalFavorite(calculateTotalData(reports, 'favorite'));
+    setTotalMonthlyConversions(
+      calculateTotalData(reports, 'monthlyConversions')
+    );
+    setTotalPricePerConversion(
+      calculateTotalPricePerConversion(totalCost, totalMonthlyConversions)
+    );
+    setTotalCTR(calculateTotalCTR(totalClicks, totalImpressions));
+  }, [totalCost, totalMonthlyConversions]);
+
+  const calculateTotalPricePerConversion = (cost, conversions) => {
+    if (conversions === 0) {
+      return 0;
+    }
+    return (cost / conversions).toFixed(2);
+  };
   const calculateMonth = (month) => {
     const date = new Date(month);
 
@@ -11,6 +47,22 @@ const Report = ({ reports }) => {
       year: 'numeric',
     })}`;
   };
+
+  const calculateTotalData = (reports, attribute) => {
+    let counter = 0;
+
+    reports.forEach((report) => (counter += report[attribute]));
+    return counter;
+  };
+
+  const calculateTotalCTR = (totalClicks, totalImpressions) => {
+    return (totalClicks / totalImpressions) * 100;
+  };
+
+  const formatNumber = (number) => {
+    return number.toLocaleString('dk-DK', { maximumFractionDigits: 2 });
+  };
+
   return (
     <>
       <div className="reports-container">
@@ -32,21 +84,21 @@ const Report = ({ reports }) => {
           <tbody>
             <tr>
               <td>CTR</td>
-              <td>Data</td>
+              <td>{formatNumber(totalCTR)} %</td>
             </tr>
 
             <tr>
               <td>Eksponeringer</td>
-              <td>Data</td>
+              <td>{formatNumber(totalImpressions)}</td>
             </tr>
 
             <tr>
               <td>Klik</td>
-              <td>Data</td>
+              <td>{formatNumber(totalClicks)}</td>
             </tr>
             <tr>
               <td>Forbrug</td>
-              <td>Data</td>
+              <td>{formatNumber(totalCost)}</td>
             </tr>
 
             <tr>
@@ -58,32 +110,32 @@ const Report = ({ reports }) => {
 
             <tr>
               <td>Emails/bestilt prøvetur</td>
-              <td>Data</td>
+              <td>{formatNumber(totalMail)}</td>
             </tr>
 
             <tr>
               <td>Telefonopkald</td>
-              <td>Data</td>
+              <td>{formatNumber(totalPhone)}</td>
             </tr>
 
             <tr>
               <td>Se andre annoncer</td>
-              <td>Data</td>
+              <td>{formatNumber(totalOtherAds)}</td>
             </tr>
 
             <tr>
               <td>Delinger</td>
-              <td>Data</td>
+              <td>{formatNumber(totalShared)}</td>
             </tr>
 
             <tr>
               <td>Kliks til hjemmeside</td>
-              <td>Data</td>
+              <td>{formatNumber(totalClickHomepage)}</td>
             </tr>
 
             <tr>
               <td>Favoritmarkering</td>
-              <td>Data</td>
+              <td>{formatNumber(totalFavorite)}</td>
             </tr>
 
             <tr>
@@ -91,7 +143,7 @@ const Report = ({ reports }) => {
                 <h4>Konvertering i alt:</h4>
               </th>
               <th>
-                <h4>data</h4>
+                <h4>{formatNumber(totalMonthlyConversions)}</h4>
               </th>
             </tr>
 
@@ -100,7 +152,7 @@ const Report = ({ reports }) => {
                 <h4>Pris pr. konvertering:</h4>
               </th>
               <th>
-                <h4>data</h4>
+                <h4>{formatNumber(totalPricePerConversion)} kr</h4>
               </th>
             </tr>
           </tbody>
@@ -120,44 +172,44 @@ const Report = ({ reports }) => {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{report.ctr}</td>
+                    <td>{formatNumber(report.ctr)} %</td>
                   </tr>
                   <tr>
-                    <td>{report.impressions}</td>
+                    <td>{formatNumber(report.impressions)}</td>
                   </tr>
                   <tr>
-                    <td>{report.clicks}</td>
+                    <td>{formatNumber(report.clicks)}</td>
                   </tr>
                   <tr>
-                    <td>{report.cost}</td>
+                    <td>{formatNumber(Math.round(report.cost))}</td>
                   </tr>
                   <tr>
                     <th>...</th>
                   </tr>
                   <tr>
-                    <td>{report.mail}</td>
+                    <td>{formatNumber(report.mail)}</td>
                   </tr>
                   <tr>
-                    <td>{report.phone}</td>
+                    <td>{formatNumber(report.phone)}</td>
                   </tr>
                   <tr>
-                    <td>{report.otherAds}</td>
+                    <td>{formatNumber(report.otherAds)}</td>
                   </tr>
                   <tr>
-                    <td>{report.shared}</td>
+                    <td>{formatNumber(report.shared)}</td>
                   </tr>
                   <tr>
-                    <td>{report.clickHomepage}</td>
+                    <td>{formatNumber(report.clickHomepage)}</td>
                   </tr>
 
                   <tr>
-                    <td>{report.favorite}</td>
+                    <td>{formatNumber(report.favorite)}</td>
                   </tr>
                   <tr>
-                    <th>{report.monthlyConversions}</th>
+                    <th>{formatNumber(report.monthlyConversions)}</th>
                   </tr>
                   <tr>
-                    <th>{report.pricePerConversion}</th>
+                    <th>{`${formatNumber(report.pricePerConversion)} kr`} </th>
                   </tr>
                 </tbody>
               </table>

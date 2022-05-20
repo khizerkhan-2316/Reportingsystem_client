@@ -1,7 +1,5 @@
 import './Sidebar.css';
 import homeIcon from '../../../Assets/Images/home-icon.png';
-import criteoIcon from '../../../Assets/Images/Criteo-Logo.png';
-import googleIcon from '../../../Assets/Images/google-logo.webp';
 import MenuItem from '../MenuItem/MenuItem.js';
 const Sidebar = () => {
   return (
@@ -17,7 +15,7 @@ const Sidebar = () => {
         <MenuItem
           img={homeIcon}
           alt="home"
-          heading="Criteo"
+          heading="Dashboard"
           path="/admin/criteo"
         />
 

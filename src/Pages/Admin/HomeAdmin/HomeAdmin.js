@@ -30,11 +30,12 @@ const HomeAdmin = ({
   };
 
   const initializeAllRequests = () => {
+    setLoading(true);
+
     const data = getData(
       localStorage.getItem(process.env.REACT_APP_ADMIN_ACCESS_TOKEN_KEY),
       `${process.env.REACT_APP_BASE_SERVER_ENDPOINT}/api/users/admin`
     );
-    setLoading(true);
     data
       .then((data) => {
         setAdminData(data);
@@ -153,7 +154,6 @@ const HomeAdmin = ({
       </div>
 
       {loading && <Spinner />}
-      {console.log(displayUsers())}
       <table className="content-table">
         <thead>
           <tr>
